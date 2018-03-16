@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    List | {{ block.super }}
+{% endblock title %}
+
+
+{% block content %}
+<h3>Post List</h3>
+    {% for obj in query_list %}
+    <div class="card mb-4">
+        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">{{ obj.title }}</h2>
+            <p class="card-text">{{ obj.content | truncatechars:25 }}</p>
+            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+             {{ obj.publish }} by
+            <a href="">{{ obj.user }}</a>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="pagination justify-content-center mb-4">
+        <span class="step-links">
+            {% if query_list.has_previous %}
+            <a href="?page={{ query_list.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ query_list.number }} of {{ query_list.paginator.num_pages }}.
+            </span>
+    
+            {% if query_list.has_next %}
+            <a href="?page={{ query_list.next_page_number }}"><i class="fa fa-angle-double-right"></i></a>
+            {% endif %}
+        </span>
+    </div>
+    
+{% endblock content %}
+    

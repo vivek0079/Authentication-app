@@ -14,7 +14,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body style="background-color:#d7ddea;">
-        {% include "snippets/navbar.html" %}
+        
+        {% block navbar %}
+        {% include "snippets/navbar.html" %}            
+        {% endblock navbar %}
+            
         <div class="container" style="margin-top:40px">
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-3">                    

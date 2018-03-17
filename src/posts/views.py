@@ -1,9 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
 from django.utils import timezone
-
-
+from django.http import Http404
 from .models import Post
 
 
@@ -27,17 +25,10 @@ def post_list(request):
     if request.user.is_staff or request.user.is_superuser:
         query_list = Post.objects.all()
     
-    query = request.GET.get("q")
-    if query:
-        query_list = query_list.filter(
-            Q(title__icontains=query) |
-            Q(content__icontains=query) |
-            Q(user__first_name__icontains=query) |
-            Q(user__last_name__icontains=query)
-        ).distinct()
 
-    paginator = Paginator(query_list, 5) 
-    page = request.GET.get('page')
+    paginator = Paginator(query_list, 1) 
+    page_request_var = "page"
+    page = request.GET.get(page_request_var)
     try:
         query_list = paginator.page(page)
     except PageNotAnInteger:
@@ -47,7 +38,21 @@ def post_list(request):
 
 
     context = {
+        "title": "All Posts",
         "query_list": query_list,
+        "page_request_var": page_request_var,
+        "today": today,
     }
     return render(request, "post_list.html",context)
 
+def post_detail(request, title=None):
+    instance = get_object_or_404(Post, slug=title)
+    title = instance.title
+    if instance.draft or instance.publish > timezone.now().date():
+        if not request.user.is_staff or not request.user.is_superuser:
+            raise Http404
+    context = {
+        "title": title,
+        "instance": instance,        
+    }
+    return render(request, "post_detail.html",context)

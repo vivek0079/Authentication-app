@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} 
+
+{{ instance.title }} | {{ block.super }} 
+
+{% endblock title %}
+
+{% block content %}
+<h1 class="mt-4">{{ title }}</h1>
+<p class="lead">
+    by
+    <a href="">{{ instance.user.get_full_name }}</a>
+</p>
+<hr>
+<p>Posted on {{ instance.publish|date:"d F Y" }}</p>
+<hr>
+<p class="lead">{{ instance.content | linebreaks}}</p>
+
+<hr>
+
+<br>
+{% endblock content %}

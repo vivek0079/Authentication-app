@@ -7,35 +7,48 @@
 
 {% block content %}
 <h3>Post List</h3>
-    {% for obj in query_list %}
-    <div class="card mb-4">
-        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-        <div class="card-body">
-            <h2 class="card-title">{{ obj.title }}</h2>
-            <p class="card-text">{{ obj.content | truncatechars:25 }}</p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
-        </div>
-        <div class="card-footer text-muted">
-             {{ obj.publish }} by
-            <a href="">{{ obj.user }}</a>
-        </div>
+{% for obj in query_list %}
+<div class="card mb-4">
+    {% if obj.image %}
+    <img class="card-img-top" src="{{ obj.image.url }}" alt="Card image cap" style="width:100%;object-fit: cover;"> {% endif %}
+    <div class="card-body">
+        {% if obj.draft %}
+        <h3>
+            <strong>Staff only: Draft</strong>
+        </h3>
+        {% if obj.publish > today %}
+        <h3>
+            <strong>Staff only:Future Post</strong>
+        </h3>
+        {% endif %} {% endif %}
+        <h2 class="card-title">{{ obj.title}}</h2>
+        <hr>
+        <p class="card-text">{{ obj.content | linebreaks | truncatechars:90}}</p>
+        <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
     </div>
-    {% endfor %}
-    <div class="pagination justify-content-center mb-4">
-        <span class="step-links">
-            {% if query_list.has_previous %}
-            <a href="?page={{ query_list.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ query_list.number }} of {{ query_list.paginator.num_pages }}.
-            </span>
-    
-            {% if query_list.has_next %}
-            <a href="?page={{ query_list.next_page_number }}"><i class="fa fa-angle-double-right"></i></a>
-            {% endif %}
-        </span>
+    <div class="card-footer text-muted">
+        Posted on {{ obj.publish|date:"d F Y" }} by {% if obj.user.get_full_name %}
+        <p>Author: {{ obj.user.get_full_name }}</p>
+        {% endif %}
     </div>
+</div>
+{% endfor %} {% if query_list %}
+<p class="text-center">Page {{ query_list.number }} of {{ query_list.paginator.num_pages }}</p>
+{% else %}
+<p class="text-center">Page 1 of 1</p>
+{% endif %}
+<!-- Pagination -->
+<ul class="pagination justify-content-center mb-4">
+    {% if query_list.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?{{ page_request_var }}={{ query_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&larr; Older</a>
+    </li>
+    {% endif %} {% if query_list.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?{{ page_request_var }}={{ query_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Newer &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
     
 {% endblock content %}
     

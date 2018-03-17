@@ -5,11 +5,14 @@ from .views import (
     home,
     about,
     post_list,
+    post_detail,
 )
 
-app_name = 'post'
+app_name = 'posts'
 urlpatterns = [
-   url(r'^$', home, name='home'),
-   url(r'^about/$', about, name='home'),
-   url(r'^list/$', post_list, name='list'),
+    url(r'^$', home, name='home'),
+    url(r'^about/$', about, name='about'),
+    url(r'^posts/$', post_list, name='list'),
+    url(r'^posts/(?P<title>[\w-]+)/$', post_detail, name='detail'),
+   
 ]

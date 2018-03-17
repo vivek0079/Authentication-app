@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
+from django.urls import reverse
 
 # Create your models here.
 class PostManager(models.Manager):
@@ -30,6 +31,9 @@ class Post(models.Model):
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ["-timestamp", "-updated"]
+
+    def get_absolute_url(self):
+        return reverse('posts:detail', kwargs={'title': self.slug})
 
 
 # To create slug field

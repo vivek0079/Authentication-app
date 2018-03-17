@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -12,13 +13,7 @@ def home(request):
     }
     return render(request, "home.html", context)
 
-
-def about(request):
-    context = {
-        "title": "About us",
-    }
-    return render(request, "about.html",context)
-
+@login_required
 def post_list(request):
     today = timezone.now().date()
     query_list = Post.objects.active()
@@ -45,6 +40,7 @@ def post_list(request):
     }
     return render(request, "post_list.html",context)
 
+@login_required
 def post_detail(request, title=None):
     instance = get_object_or_404(Post, slug=title)
     title = instance.title

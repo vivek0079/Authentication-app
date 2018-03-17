@@ -21,7 +21,7 @@ body {
 	text-decoration: none;
 	color: #666;
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 18px;
 	-webkit-transition: all 0.1s linear;
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
@@ -101,7 +101,19 @@ body {
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
-
-    
-            
-                        
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}                     

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-default" style="background-color:#b0bcd5">
+    <a class="navbar-brand" href="#">Custom UserAuth app</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,29 +8,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/posts">Posts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 2</a>
+                <a class="nav-link" href="https://github.com/vivek0079/">About</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" >
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/" style="color: inherit;text-decoration:none;">Welcome {{ user.username }}</a>
+                    <a class="nav-link" href="/" style="text-decoration:none;">Welcome {{ user.username }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout" style="color: inherit;text-decoration:none;">Logout</a>
+                    <a class="nav-link" href="/logout" style="text-decoration:none;">Logout</a>
                 </li>
             {% else %}
             <li class="nav-item"> 
-                <a class="nav-link" href="/login" style="color: inherit;text-decoration:none;">Login</a>
+                <a class="nav-link" href="/login" style="text-decoration:none;">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/register" style="color: inherit;text-decoration:none;">Register</a>
+                <a class="nav-link" href="/register" style="text-decoration:none;">Register</a>
             </li>
             {% endif %}
             

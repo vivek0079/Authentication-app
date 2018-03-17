@@ -20,17 +20,17 @@
         <ul class="navbar-nav ml-auto" >
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color: inherit;text-decoration:none;">Welcome {{ user.username }}</a>
+                    <a class="nav-link" href="/" style="color: inherit;text-decoration:none;">Welcome {{ user.username }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color: inherit;text-decoration:none;">Logout</a>
+                    <a class="nav-link" href="/logout" style="color: inherit;text-decoration:none;">Logout</a>
                 </li>
             {% else %}
             <li class="nav-item"> 
-                <a class="nav-link" href="#" style="color: inherit;text-decoration:none;">Login</a>
+                <a class="nav-link" href="/login" style="color: inherit;text-decoration:none;">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: inherit;text-decoration:none;">Register</a>
+                <a class="nav-link" href="/register" style="color: inherit;text-decoration:none;">Register</a>
             </li>
             {% endif %}
             
